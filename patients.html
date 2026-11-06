@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Patients · MediPulse{% endblock %}
+{% block content %}
+<div class="top">
+  <div><div class="eyebrow">Clinic overview</div><h1>Patients</h1></div>
+  <button class="btn" type="button" data-open-modal="addPatient">{{ icon('plus', 14) }}Add patient</button>
+</div>
+<div class="panel">
+  <div class="panel-head"><div><div class="eyebrow">Care directory</div><h3>All patients</h3></div><span class="pill">{{ patients|length }} shown</span></div>
+  <form class="search" method="get" action="{{ url_for('patients') }}" style="max-width:360px">
+    {{ icon('search', 14) }}<input name="q" value="{{ q }}" placeholder="Search by name, email, condition" aria-label="Search patients">
+  </form>
+  <div class="scroll-x">
+    <table class="table">
+      <thead><tr><th>Patient</th><th>Condition</th><th>Contact</th><th>Medications</th><th>Weekly adherence</th><th></th></tr></thead>
+      <tbody>
+      {% for p in patients %}
+        <tr>
+          <td><a class="link" href="{{ url_for('patient_details', patient_id=p['id']) }}">{{ p['name'] }}</a></td>
+          <td>{{ p['condition'] }}</td>
+          <td>{{ p['email'] }}{% if p['phone'] %}<div class="mini">{{ p['phone'] }}</div>{% endif %}</td>
+          <td>{{ p['active_meds'] }} active</td>
+          <td>{% if p['week']['total'] %}<span class="pill{{ ' bad' if p['week']['pct'] < 60 }}">{{ p['week']['pct'] }}%</span>{% else %}<span class="mini">No doses yet</span>{% endif %}</td>
+          <td><a class="btn ghost" href="{{ url_for('report_view', patient_id=p['id']) }}">Report</a></td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6">No patients found.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

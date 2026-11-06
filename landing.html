@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}MediPulse{% endblock %}
+{% block content %}
+<div class="eyebrow">Welcome</div>
+<h2>Your care, connected.</h2>
+<p class="sub">Doctors keep care plans clear. Patients keep every dose on track.</p>
+<div class="cta-stack">
+  <a class="btn block" href="{{ url_for('auth.login') }}">Sign in {{ icon('arrow', 14) }}</a>
+  <a class="btn ghost block" href="{{ url_for('auth.register') }}">Create an account</a>
+</div>
+<div class="demo-label">Try a demo workspace</div>
+<form method="post" action="{{ url_for('auth.demo', role='doctor') }}">
+  <button class="demo" type="submit">{{ icon('steth') }}<span><b>Doctor demo</b><small>Manage patient care</small></span><span class="go">{{ icon('chev', 14) }}</span></button>
+</form>
+<form method="post" action="{{ url_for('auth.demo', role='patient') }}">
+  <button class="demo" type="submit">{{ icon('user') }}<span><b>Patient demo</b><small>Track your medications</small></span><span class="go">{{ icon('chev', 14) }}</span></button>
+</form>
+{% endblock %}

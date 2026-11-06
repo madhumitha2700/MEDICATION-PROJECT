@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Sign in · MediPulse{% endblock %}
+{% block content %}
+<div class="eyebrow">Welcome back</div>
+<h2>Your care, connected.</h2>
+<p class="sub">Sign in to continue your care journey.</p>
+<form method="post" class="stack" novalidate>
+  <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" value="{{ email }}" placeholder="you@example.com" required></div>
+  <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
+  <button class="btn block" type="submit">Sign in {{ icon('arrow', 14) }}</button>
+</form>
+<a class="switch" href="{{ url_for('auth.register') }}">New to MediPulse? Create an account</a>
+<div class="demo-label">Try a demo workspace</div>
+<form method="post" action="{{ url_for('auth.demo', role='doctor') }}">
+  <button class="demo" type="submit">{{ icon('steth') }}<span><b>Doctor demo</b><small>Manage patient care</small></span><span class="go">{{ icon('chev', 14) }}</span></button>
+</form>
+<form method="post" action="{{ url_for('auth.demo', role='patient') }}">
+  <button class="demo" type="submit">{{ icon('user') }}<span><b>Patient demo</b><small>Track your medications</small></span><span class="go">{{ icon('chev', 14) }}</span></button>
+</form>
+{% endblock %}

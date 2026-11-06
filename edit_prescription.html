@@ -1,0 +1,5 @@
+{% extends "add_prescription.html" %}
+{% block page_title %}Edit prescription{% endblock %}
+{% block heading %}Edit {{ rx['name'] }} for {{ patient['name'] }}{% endblock %}
+{% block action %}{{ url_for('edit_prescription', rx_id=rx['id']) }}{% endblock %}
+{% block submit_label %}Save changes{% endblock %}
